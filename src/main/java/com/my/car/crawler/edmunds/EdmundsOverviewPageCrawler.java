@@ -163,6 +163,7 @@ public class EdmundsOverviewPageCrawler implements Crawler {
     public void save(String file) throws IOException {
         try (FileWriter fileWriter = new FileWriter(file)) {
             gson.toJson(carList, fileWriter);
+            logger.info("Write cars to file({})", file);
         }
     }
 }

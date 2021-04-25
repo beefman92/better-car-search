@@ -2,18 +2,18 @@ package com.my.car.entity;
 
 
 public class Car {
-    private String title;
+    private String title = "";
     private boolean certified;
     private String vin;
     private int year;
     private String make;
     private String mode;
     private int mileage;
-    private String spec;
-    private String description;
+    private String spec = "";
+    private String description = "";
     private int price;
-    private String imageUrl;
-    private String originPageLink;
+    private String imageUrl = "";
+    private String originPageLink = "";
 
     public String getVin() {
         return vin;

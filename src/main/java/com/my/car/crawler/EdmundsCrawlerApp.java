@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class App {
-    private static final Logger logger = LogManager.getLogger(EdmundsDetailPageCrawler.class);
+public class EdmundsCrawlerApp {
+    private static final Logger logger = LogManager.getLogger(EdmundsCrawlerApp.class);
 
     public static void main(String[] args) {
         if (args.length != 2) {

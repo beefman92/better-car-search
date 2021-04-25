@@ -51,7 +51,7 @@ public class EdmundsOverviewPageFeeder implements CrawlerFeeder<Document> {
                 Connection.Response response = Jsoup.connect(url).execute();
                 logger.info("Get edmunds overview page({}) with url({})", index, url);
                 try (FileWriter fileWriter = new FileWriter(
-                        String.format("data/source/edmunds-used-p-%d-r-%d-z-%d.html", index, radius, zip))) {
+                        String.format("data/source/edmunds/used-p-%d-r-%d-z-%d.html", index, radius, zip))) {
                     fileWriter.write(response.body());
                 }
                 Document doc = response.parse();
