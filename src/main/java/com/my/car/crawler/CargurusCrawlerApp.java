@@ -12,13 +12,16 @@ public class CargurusCrawlerApp {
     private static final Logger logger = LogManager.getLogger(CargurusCrawlerApp.class);
 
     public static void main(String[] args) {
-        if (args.length != 3) {
+        if (args.length != 5) {
             throw new RuntimeException("Must provide start page, end page and results per page");
         }
-        int startPage = Integer.parseInt(args[0]);
-        int endPage = Integer.parseInt(args[1]);
-        int resultsPerPage = Integer.parseInt(args[2]);
-        logger.info("startPage: {}, endPage: {}, resultsPerPage: {}.", startPage, endPage, resultsPerPage);
+        int zip = Integer.parseInt(args[0]);
+        int radius = Integer.parseInt(args[1]);
+        int startPage = Integer.parseInt(args[2]);
+        int endPage = Integer.parseInt(args[3]);
+        int resultsPerPage = Integer.parseInt(args[4]);
+        logger.info("zip: {}, radius: {}, startPage: {}, endPage: {}, resultsPerPage: {}.",
+                zip, radius, startPage, endPage, resultsPerPage);
         logger.info("Start crawling.");
         try {
             Utils.initVinSet();
@@ -27,7 +30,7 @@ public class CargurusCrawlerApp {
             logger.error("Failed to initialize vin set: ", e);
             throw new RuntimeException(e);
         }
-        CargurusFeeder feeder = new CargurusFeeder(startPage, endPage, resultsPerPage);
+        CargurusFeeder feeder = new CargurusFeeder(zip, radius, startPage, endPage, resultsPerPage);
         CargurusCrawler crawler = new CargurusCrawler(feeder);
 
         try {

@@ -2,7 +2,7 @@ package com.my.car.search.query;
 
 public class Filter {
     public enum Condition {
-        EQUALS, GREATER_THAN, LESS_THAN
+        LESS_THAN, EQUALS, GREATER_THAN
     }
 
     private String key;

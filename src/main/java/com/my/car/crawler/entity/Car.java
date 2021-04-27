@@ -1,4 +1,4 @@
-package com.my.car.entity;
+package com.my.car.crawler.entity;
 
 
 public class Car {

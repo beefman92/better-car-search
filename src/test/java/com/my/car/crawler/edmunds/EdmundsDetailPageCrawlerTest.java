@@ -1,6 +1,6 @@
 package com.my.car.crawler.edmunds;
 
-import com.my.car.entity.Car;
+import com.my.car.crawler.entity.Car;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;

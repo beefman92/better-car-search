@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.my.car.crawler.Utils;
 import com.my.car.crawler.common.Crawler;
-import com.my.car.entity.Car;
+import com.my.car.crawler.entity.Car;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -103,7 +103,7 @@ public class CargurusCrawler implements Crawler {
                             } catch (Exception e) {
                                 logger.warn("Failed to get detail for car(" + id + ")", e);
                             }
-                            long sleep = 5000 + Utils.getRandomSleepOffset(-2000, 2000);
+                            long sleep = 10000 + Utils.getRandomSleepOffset(-2000, 2000);
                             logger.info("Sleep {} before next car.", sleep / 1000.0);
                             Thread.sleep(sleep);
                         }

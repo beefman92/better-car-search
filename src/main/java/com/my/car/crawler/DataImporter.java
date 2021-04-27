@@ -2,16 +2,12 @@ package com.my.car.crawler;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.my.car.entity.Car;
+import com.my.car.crawler.entity.Car;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
-import org.eclipse.jetty.util.IO;
 
 import java.io.File;
 import java.io.FileReader;
@@ -61,7 +57,7 @@ public class DataImporter {
         }
         solrInputDocument.addField("year", car.getYear());
         solrInputDocument.addField("make", car.getMake());
-        solrInputDocument.addField("mode", car.getMode());
+        solrInputDocument.addField("model", car.getMode());
         solrInputDocument.addField("price", car.getPrice());
         solrInputDocument.addField("mileage", car.getMileage());
         solrInputDocument.addField("spec", car.getSpec());

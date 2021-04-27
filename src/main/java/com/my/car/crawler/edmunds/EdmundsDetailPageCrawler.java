@@ -3,7 +3,7 @@ package com.my.car.crawler.edmunds;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.my.car.crawler.common.Crawler;
-import com.my.car.entity.Car;
+import com.my.car.crawler.entity.Car;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
