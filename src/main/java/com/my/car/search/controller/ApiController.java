@@ -55,7 +55,7 @@ public class ApiController {
             solrQuery.setStart(offset);
             solrQuery.setRows(limit);
             solrQuery.set("defType", "dismax");
-            solrQuery.set("qf", "make^2 model^2 spec^1.5 description^1.5");
+            solrQuery.set("qf", "make^2 model^2 spec^1.5 description^1");
             solrQuery.set("q", query);
             solrQuery.setFields("*");
             StructuredQuery structuredQuery = queryParser.parse(query);
