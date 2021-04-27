@@ -14,6 +14,7 @@ const initialState: SearchResultStore = {
     priceFacet: {} as IRangeFacet,
     yearFacet: {} as IRangeFacet,
     mileageFacet: {} as IRangeFacet,
+    fieldFacetList: [],
   },
   query: "",
 };

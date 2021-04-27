@@ -59,7 +59,7 @@ public class ApiController {
             StructuredQuery structuredQuery = queryParser.parse(query);
             solrQuery.setFilterQueries(structuredQuery.generateFilterQuery());
 
-            // facet
+            // range facet
             solrQuery.set("facet", "true");
             solrQuery.addNumericRangeFacet("price", 10000, 50000, 10000);
             solrQuery.set("f.price.facet.range.other", "all");
@@ -67,6 +67,12 @@ public class ApiController {
             solrQuery.set("f.year.facet.range.other", "all");
             solrQuery.addNumericRangeFacet("mileage", 10000, 200000, 50000);
             solrQuery.set("f.mileage.facet.range.other", "all");
+
+            // facet field
+            solrQuery.addFacetField("make", "model", "certifiedString");
+            solrQuery.set("f.make.facet.mincount", "1");
+            solrQuery.set("f.model.facet.mincount", "1");
+            solrQuery.set("f.certifiedString.facet.mincount", "1");
 
             // todo: highlighter
             QueryResponse response = httpSolrClient.query(solrQuery);

@@ -4,6 +4,7 @@ export interface ISearchResult {
   priceFacet: IRangeFacet;
   yearFacet: IRangeFacet;
   mileageFacet: IRangeFacet;
+  fieldFacetList: IFieldFacet[];
 }
 
 export interface IDocument {
@@ -34,6 +35,16 @@ export interface IRangeCount extends ICount {
   count: number;
   left: number;
   right: number;
+}
+
+export interface IFieldFacet {
+  name: string;
+  countList: IFieldCount[];
+}
+
+export interface IFieldCount extends ICount {
+  key: string;
+  count: number;
 }
 
 export interface ICount {

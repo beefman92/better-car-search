@@ -20,6 +20,7 @@ import {
   ICount,
   IRangeFacet,
   RangeType,
+  IFieldCount,
 } from "src/types/SearchResult";
 import CarCard from "./CarCard";
 import api from "src/api";
@@ -139,7 +140,8 @@ const SearchResult = () => {
         return `${rangeCount.name}:[${rangeCount.left} TO *]`;
       }
     } else {
-      return "";
+      const fieldCount = count as IFieldCount;
+      return fieldCount.name + ":" + fieldCount.key;
     }
   };
 
@@ -198,7 +200,7 @@ const SearchResult = () => {
               : classes.facetTag
           }
           item
-          key={count.key}
+          key={count.id}
           xs='auto'
           onClick={() => handleCountOnClick(count)}
         >
@@ -236,6 +238,35 @@ const SearchResult = () => {
       });
   };
 
+  const renderFieldFacet = () => {
+    return searchResultStore.searchResult.fieldFacetList.map((fieldFacet) => {
+      return fieldFacet.countList.map((fieldCount) => {
+        let name = fieldCount.name;
+        if (fieldCount.name.endsWith("String")) {
+          name = name.substr(0, name.length - "String".length);
+        }
+        return (
+          <Grid
+            className={
+              _.get(selectedCount, "id", "") === fieldCount.id
+                ? classes.facetTagActive
+                : classes.facetTag
+            }
+            item
+            key={fieldCount.id}
+            xs='auto'
+            onClick={() => handleCountOnClick(fieldCount)}
+          >
+            <span className={classes.facetHeader}>
+              {name + ": " + fieldCount.key}
+            </span>
+            <span className={classes.facetCount}>{`${fieldCount.count}`}</span>
+          </Grid>
+        );
+      });
+    });
+  };
+
   const renderFacets = () => {
     return (
       <Fragment>
@@ -251,6 +282,7 @@ const SearchResult = () => {
         {renderRangeFacet("priceFacet")}
         {renderRangeFacet("yearFacet")}
         {renderRangeFacet("mileageFacet")}
+        {renderFieldFacet()}
       </Fragment>
     );
   };

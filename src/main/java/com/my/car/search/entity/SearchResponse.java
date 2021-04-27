@@ -40,6 +40,13 @@ public class SearchResponse {
                 }
             }
         }
+
+        response.fieldFacetList = new ArrayList<>();
+        if (queryResponse.getFacetFields() != null) {
+            for (org.apache.solr.client.solrj.response.FacetField facetField: queryResponse.getFacetFields()) {
+                response.fieldFacetList.add(FieldFacet.convert(facetField));
+            }
+        }
         return response;
     }
 
@@ -48,7 +55,15 @@ public class SearchResponse {
     private RangeFacet priceFacet;
     private RangeFacet yearFacet;
     private RangeFacet mileageFacet;
+    private List<FieldFacet> fieldFacetList;
 
+    public List<FieldFacet> getFieldFacetList() {
+        return fieldFacetList;
+    }
+
+    public void setFieldFacetList(List<FieldFacet> fieldFacetList) {
+        this.fieldFacetList = fieldFacetList;
+    }
 
     public List<Document> getDocumentList() {
         return documentList;
@@ -88,6 +103,86 @@ public class SearchResponse {
 
     public void setTotal(long total) {
         this.total = total;
+    }
+
+    public static class FieldFacet {
+        public static FieldFacet convert(org.apache.solr.client.solrj.response.FacetField solrFacet) {
+            FieldFacet fieldFacet = new FieldFacet();
+            fieldFacet.setName(solrFacet.getName());
+            List<FieldCount> countList = new ArrayList<>();
+            for (org.apache.solr.client.solrj.response.FacetField.Count solrCount: solrFacet.getValues()) {
+                FieldCount fieldCount = new FieldCount();
+                fieldCount.setName(solrFacet.getName());
+                fieldCount.setKey(solrCount.getName());
+                fieldCount.setCount(solrCount.getCount());
+                fieldCount.generateId();
+                countList.add(fieldCount);
+            }
+            fieldFacet.setCountList(countList);
+            return fieldFacet;
+        }
+
+        private String name;
+        private List<FieldCount> countList;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public List<FieldCount> getCountList() {
+            return countList;
+        }
+
+        public void setCountList(List<FieldCount> countList) {
+            this.countList = countList;
+        }
+
+        static class FieldCount {
+            private String id;
+            private String name;
+            private String key;
+            private long count;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getKey() {
+                return key;
+            }
+
+            public void setKey(String key) {
+                this.key = key;
+            }
+
+            public long getCount() {
+                return count;
+            }
+
+            public void setCount(long count) {
+                this.count = count;
+            }
+
+            public void generateId() {
+                id = name + "-" + key + "-" + count;
+            }
+        }
     }
 
     public static class RangeFacet {
