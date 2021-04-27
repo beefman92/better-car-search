@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "0.5rem",
   },
   image: {
-    width: "400px",
+    width: "350px",
   },
   title: {
     color: theme.palette.info.dark,

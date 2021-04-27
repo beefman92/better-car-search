@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import _ from "lodash";
 import {
   Grid,
@@ -61,6 +61,9 @@ const useStyles = makeStyles((theme) => ({
   unselectFacetButton: {
     marginLeft: "0.5rem",
   },
+  contentContainer: {
+    height: "fit-content",
+  },
 }));
 
 const SearchResult = () => {
@@ -72,6 +75,14 @@ const SearchResult = () => {
   const [offset, setOffset] = useState<number>(0);
   const [isCountSelected, setIsCountSelected] = useState<boolean>(false); //
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    // reset
+    setSelectedCount({} as ICount);
+    setLimit(20);
+    setOffset(0);
+    setIsCountSelected(false);
+  }, [searchResultStore.query]);
 
   const renderSearchResultDocument = () => {
     return searchResultStore.searchResult.documentList.map((carDocument) => {
@@ -141,7 +152,7 @@ const SearchResult = () => {
       }
     } else {
       const fieldCount = count as IFieldCount;
-      return fieldCount.name + ":" + fieldCount.key;
+      return fieldCount.name + ':"' + fieldCount.key + '"';
     }
   };
 
@@ -359,7 +370,7 @@ const SearchResult = () => {
       <Grid item justify='flex-start' alignItems='flex-start' xs={2}>
         {renderFacets()}
       </Grid>
-      <Grid container item xs={10}>
+      <Grid className={classes.contentContainer} container item xs={10}>
         {renderPageHeader()}
         {renderSearchResultDocument()}
       </Grid>
