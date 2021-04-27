@@ -21,6 +21,7 @@ import {
   IRangeFacet,
   RangeType,
 } from "src/types/SearchResult";
+import CarCard from "./CarCard";
 import api from "src/api";
 import { setSearchResultStore } from "src/redux/searchResult";
 
@@ -72,26 +73,8 @@ const SearchResult = () => {
   const dispatch = useDispatch();
 
   const renderSearchResultDocument = () => {
-    return searchResultStore.searchResult.documentList.map((document) => {
-      return (
-        <Grid key={document.vin} container item spacing={3} xs={12}>
-          <Grid item xs={12}>
-            <Divider />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant='body1'>{document.vin}</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant='body1'>{document.title}</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant='body2'>{document.spec}</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant='body2'>{document.description}</Typography>
-          </Grid>
-        </Grid>
-      );
+    return searchResultStore.searchResult.documentList.map((carDocument) => {
+      return <CarCard key={carDocument.vin} carDocument={carDocument} />;
     });
   };
 
