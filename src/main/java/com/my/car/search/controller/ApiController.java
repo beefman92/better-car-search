@@ -74,7 +74,11 @@ public class ApiController {
             solrQuery.set("f.model.facet.mincount", "1");
             solrQuery.set("f.certifiedString.facet.mincount", "1");
 
-            // todo: highlighter
+            // highlighter
+            solrQuery.setHighlight(true);
+            solrQuery.addHighlightField("spec");
+            solrQuery.addHighlightField("description");
+
             QueryResponse response = httpSolrClient.query(solrQuery);
             return SearchResponse.convert(response);
         } catch (Exception e) {

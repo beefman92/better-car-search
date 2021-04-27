@@ -19,6 +19,8 @@ export interface IDocument {
   description: string;
   price: number;
   imageUrl: string;
+  specHighlightList: string[];
+  descriptionHighlightList: string[];
 }
 
 export interface IRangeFacet {

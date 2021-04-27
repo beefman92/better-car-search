@@ -167,6 +167,7 @@ const SearchResult = () => {
         );
       });
   };
+
   const search = (offset: number, limit: number) => {
     return api
       .search({

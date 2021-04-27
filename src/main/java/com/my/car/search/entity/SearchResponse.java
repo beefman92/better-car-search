@@ -4,13 +4,19 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SearchResponse {
     public static SearchResponse convert(QueryResponse queryResponse) {
         SearchResponse response = new SearchResponse();
         List<Document> documentList = new ArrayList<>();
         response.setTotal(queryResponse.getResults().getNumFound());
+        Map<String, Map<String, List<String>>> highlightMap =  queryResponse.getHighlighting();
+        if (highlightMap == null) {
+            highlightMap = new HashMap<>();
+        }
         for (SolrDocument solrDocument: queryResponse.getResults()) {
             Document document = new Document();
             document.vin = (String)solrDocument.getFieldValue("vin");
@@ -25,6 +31,17 @@ public class SearchResponse {
             document.price = (Integer)solrDocument.getFieldValue("price");
             document.imageUrl = (String)solrDocument.getFieldValue("imageUrl");
             document.originPageLink = (String)solrDocument.getFieldValue("originPageLink");
+            Map<String, List<String>> highlightContent = highlightMap.get(document.vin);
+            if (highlightContent != null) {
+                List<String> specList = highlightContent.get("spec");
+                List<String> descriptionList = highlightContent.get("description");
+                if (specList != null) {
+                    document.specHighlightList = specList;
+                }
+                if (descriptionList != null) {
+                    document.descriptionHighlightList = descriptionList;
+                }
+            }
             documentList.add(document);
         }
         response.setDocumentList(documentList);
@@ -392,6 +409,9 @@ public class SearchResponse {
         private String imageUrl = "";
         private String originPageLink = "";
 
+        private List<String> specHighlightList = new ArrayList<>();
+        private List<String> descriptionHighlightList = new ArrayList<>();
+
         public String getVin() {
             return vin;
         }
@@ -486,6 +506,22 @@ public class SearchResponse {
 
         public void setOriginPageLink(String originPageLink) {
             this.originPageLink = originPageLink;
+        }
+
+        public List<String> getSpecHighlightList() {
+            return specHighlightList;
+        }
+
+        public void setSpecHighlightList(List<String> specHighlightList) {
+            this.specHighlightList = specHighlightList;
+        }
+
+        public List<String> getDescriptionHighlightList() {
+            return descriptionHighlightList;
+        }
+
+        public void setDescriptionHighlightList(List<String> descriptionHighlightList) {
+            this.descriptionHighlightList = descriptionHighlightList;
         }
     }
 }
