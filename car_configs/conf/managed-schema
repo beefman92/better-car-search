@@ -7,25 +7,33 @@
 <!--     <field name="_version_" type="plong" indexed="false" stored="false"/> -->
 
 <!--     <field name="_text_" type="text_general" indexed="true" stored="false" multiValued="true"/> -->
+    <field name="title" type="text_general" indexed="true" stored="true" required="false" multiValued="false" />
 	<field name="certified" type="boolean" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="certifiedString" type="string" indexed="true" stored="true" required="false" multiValued="false" />
     <field name="year" type="pint" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="make" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="mode" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="model" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="price" type="pint" indexed="true" stored="true" required="true" multiValued="false" />
 
     <field name="mileage" type="pint" indexed="true" stored="true" required="false" multiValued="false" />
+
     <field name="spec" type="text_general" indexed="true" stored="true" required="false" multiValued="false" />
+    <field name="specString" type="string" indexed="false" docValues="true" required="false" multiValued="false" />
+    <copyField source="spec" dest="specString"/>
+
 	<field name="description" type="text_general" indexed="true" stored="true" required="false" multiValued="false" />
+    <field name="descriptionString" type="string" indexed="false" docValues="true" required="false" multiValued="false" />
+    <copyField source="description" dest="descriptionString"/>
 
     <field name="imageUrl" type="string" indexed="false" stored="true" required="false" multiValued="false" />
     <field name="originPageLink" type="string" indexed="true" stored="false" required="false" multiValued="false" />
 
-    <field name="_text_" type="text_general" indexed="true" stored="false" multiValued="true"/>
+    <field name="_text_" type="text_general" indexed="true" stored="true" multiValued="true"/>
+    <copyField source="title" dest="_text_"/>
     <copyField source="certifiedString" dest="_text_"/>
     <copyField source="year" dest="_text_"/>
     <copyField source="make" dest="_text_"/>
-    <copyField source="mode" dest="_text_"/>
+    <copyField source="model" dest="_text_"/>
     <copyField source="price" dest="_text_"/>
     <copyField source="mileage" dest="_text_"/>
     <copyField source="spec" dest="_text_"/>

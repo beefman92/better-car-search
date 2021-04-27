@@ -367,7 +367,7 @@ const SearchResult = () => {
 
   return (
     <Grid container spacing={3}>
-      <Grid item justify='flex-start' alignItems='flex-start' xs={2}>
+      <Grid item xs={2}>
         {renderFacets()}
       </Grid>
       <Grid className={classes.contentContainer} container item xs={10}>

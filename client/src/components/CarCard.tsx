@@ -74,9 +74,7 @@ const CarCard = ({ carDocument }: Props) => {
         </Fragment>
       );
     } else {
-      const content =
-        carDocument.specHighlightList.join("...") +
-        carDocument.descriptionHighlightList.join("...");
+      const content = carDocument.textHighlightList.join("...");
       const enhancedContent = content.replaceAll(
         "<em>",
         `<em class=${classes.highlight}>`

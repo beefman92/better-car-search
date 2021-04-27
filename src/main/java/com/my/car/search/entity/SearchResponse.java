@@ -35,11 +35,15 @@ public class SearchResponse {
             if (highlightContent != null) {
                 List<String> specList = highlightContent.get("spec");
                 List<String> descriptionList = highlightContent.get("description");
+                List<String> textHighlightList = highlightContent.get("_text_");
                 if (specList != null) {
                     document.specHighlightList = specList;
                 }
                 if (descriptionList != null) {
                     document.descriptionHighlightList = descriptionList;
+                }
+                if (textHighlightList != null) {
+                    document.textHighlightList = textHighlightList;
                 }
             }
             documentList.add(document);
@@ -411,6 +415,16 @@ public class SearchResponse {
 
         private List<String> specHighlightList = new ArrayList<>();
         private List<String> descriptionHighlightList = new ArrayList<>();
+
+        public List<String> getTextHighlightList() {
+            return textHighlightList;
+        }
+
+        public void setTextHighlightList(List<String> textHighlightList) {
+            this.textHighlightList = textHighlightList;
+        }
+
+        private List<String> textHighlightList = new ArrayList<>();
 
         public String getVin() {
             return vin;

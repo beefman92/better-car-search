@@ -21,6 +21,7 @@ export interface IDocument {
   imageUrl: string;
   specHighlightList: string[];
   descriptionHighlightList: string[];
+  textHighlightList: string[];
 }
 
 export interface IRangeFacet {

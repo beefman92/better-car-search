@@ -54,7 +54,7 @@ public class ApiController {
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setStart(offset);
             solrQuery.setRows(limit);
-            solrQuery.set("q", "_text_:" + query);
+            solrQuery.set("q", query);
             solrQuery.setFields("*");
             StructuredQuery structuredQuery = queryParser.parse(query);
             solrQuery.setFilterQueries(structuredQuery.generateFilterQuery());
@@ -76,8 +76,8 @@ public class ApiController {
 
             // highlighter
             solrQuery.setHighlight(true);
-            solrQuery.addHighlightField("spec");
-            solrQuery.addHighlightField("description");
+            solrQuery.addHighlightField("_text_");
+            // solrQuery.addHighlightField("description");
 
             QueryResponse response = httpSolrClient.query(solrQuery);
             return SearchResponse.convert(response);
@@ -104,7 +104,7 @@ public class ApiController {
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setStart(offset);
             solrQuery.setRows(limit);
-            solrQuery.set("q", "_text_:" + query);
+            solrQuery.set("q", query);
             solrQuery.setFields("*");
             StructuredQuery structuredQuery = queryParser.parse(query);
             solrQuery.setFilterQueries(structuredQuery.generateFilterQuery());
@@ -112,7 +112,10 @@ public class ApiController {
             // Apply facet to filter query
             solrQuery.addFilterQuery(facet);
 
-            // todo: highlighter
+            // highlighter
+            solrQuery.setHighlight(true);
+            solrQuery.addHighlightField("_text_");
+
             QueryResponse response = httpSolrClient.query(solrQuery);
             return SearchResponse.convert(response);
         } catch (Exception e) {
