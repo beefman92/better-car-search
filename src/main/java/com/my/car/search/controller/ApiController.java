@@ -54,6 +54,8 @@ public class ApiController {
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setStart(offset);
             solrQuery.setRows(limit);
+            solrQuery.set("defType", "dismax");
+            solrQuery.set("qf", "make^2 model^2 spec^1.5 description^1.5");
             solrQuery.set("q", query);
             solrQuery.setFields("*");
             StructuredQuery structuredQuery = queryParser.parse(query);
@@ -79,6 +81,7 @@ public class ApiController {
             solrQuery.addHighlightField("_text_");
             // solrQuery.addHighlightField("description");
 
+            logger.info(solrQuery.toString());
             QueryResponse response = httpSolrClient.query(solrQuery);
             return SearchResponse.convert(response);
         } catch (Exception e) {
@@ -104,6 +107,8 @@ public class ApiController {
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setStart(offset);
             solrQuery.setRows(limit);
+            solrQuery.set("defType", "dismax");
+            solrQuery.set("qf", "make^2 model^2 spec^1.5 description^1.5");
             solrQuery.set("q", query);
             solrQuery.setFields("*");
             StructuredQuery structuredQuery = queryParser.parse(query);
@@ -116,6 +121,7 @@ public class ApiController {
             solrQuery.setHighlight(true);
             solrQuery.addHighlightField("_text_");
 
+            logger.info(solrQuery.toString());
             QueryResponse response = httpSolrClient.query(solrQuery);
             return SearchResponse.convert(response);
         } catch (Exception e) {

@@ -144,9 +144,11 @@ const SearchResult = () => {
     if (!!_.get(count, "rangeType", "")) {
       const rangeCount = count as IRangeCount;
       if (rangeCount.rangeType === RangeType.LEFT_MOST) {
-        return `${rangeCount.name}:[* TO ${rangeCount.right}]`;
+        return `${rangeCount.name}:[* TO ${rangeCount.right - 1}]`;
       } else if (rangeCount.rangeType === RangeType.MIDDLE) {
-        return `${rangeCount.name}:[${rangeCount.left} TO ${rangeCount.right}]`;
+        return `${rangeCount.name}:[${rangeCount.left} TO ${
+          rangeCount.right - 1
+        }]`;
       } else {
         return `${rangeCount.name}:[${rangeCount.left} TO *]`;
       }
